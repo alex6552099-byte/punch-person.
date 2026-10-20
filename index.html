@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#08111f">
+<meta name="description" content="Punch Person — your personal routine, attendance and progress tracker.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<title>Punch Person</title>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#home" aria-label="Punch Person home"><span class="brand-icon">P</span><span><b>Punch Person</b><small>Discipline · Progress · Together</small></span></a>
+    <nav id="side-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-page="home">⌂ <span>Home</span></button>
+      <button class="nav-item" data-page="routine">☷ <span>My Routine</span></button>
+      <button class="nav-item" data-page="attendance">▦ <span>Attendance</span></button>
+      <button class="nav-item" data-page="reports">▤ <span>Reports & Goals</span></button>
+      <button class="nav-item" data-page="friends">♧ <span>Friends</span></button>
+      <button class="nav-item" data-page="settings">⚙ <span>Settings</span></button>
+    </nav>
+    <div class="sidebar-note"><span class="live-dot"></span> Your day, your pace.<br><small>Build consistency, not perfection.</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><div class="eyebrow" id="today-label">YOUR PERSONAL SPACE</div><h1 id="page-heading">Good morning!</h1></div>
+      <div class="top-actions"><button id="install-btn" class="button secondary hidden">＋ Install app</button><button id="quick-settings" class="avatar" aria-label="Open settings">A</button></div>
+    </header>
+
+    <section class="page active" id="page-home">
+      <div class="hero">
+        <div><span class="eyebrow light">A LITTLE PROGRESS EVERY DAY</span><h2>Your routine.<br><em>Your progress.</em></h2><p>Keep showing up for the things that matter to you.</p><button class="button light-button" data-go="routine">View my routine <span>→</span></button></div>
+        <div class="hero-orb"><span>PP</span><i>✦</i></div>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card"><span class="stat-icon cyan">◷</span><span class="muted">Today's progress</span><strong id="today-percent">0%</strong><div class="progress"><span id="today-progress-bar"></span></div></article>
+        <article class="stat-card"><span class="stat-icon green">✓</span><span class="muted">Completed</span><strong id="today-completed">0 / 0</strong><small class="muted">Recorded activities today</small></article>
+        <article class="stat-card"><span class="stat-icon violet">✧</span><span class="muted">Morning block</span><strong>04:00–08:00</strong><small class="muted">Customizable activities</small></article>
+      </div>
+      <div class="section-heading"><div><h2>Today's routine</h2><p>Start an activity when you're ready.</p></div><button class="text-button" data-go="routine">Edit routine →</button></div>
+      <div id="home-tasks" class="task-list panel"></div>
+      <div class="two-col">
+        <article class="panel checkin-card"><div class="section-heading compact"><div><h2>Wake-up check-in</h2><p>Target: <b id="wake-target-label">04:00 AM</b></p></div><span class="stat-icon cyan">◉</span></div><p>Did you wake up at your scheduled time?</p><div class="button-row"><button id="wake-yes" class="button primary">Yes, add photo</button><button id="wake-no" class="button secondary">Not today</button></div><div id="wake-upload" class="upload-area hidden"><label for="wake-photo">Clock photo evidence</label><input type="file" id="wake-photo" accept="image/*" capture="environment"><img id="wake-preview" class="photo-preview hidden" alt="Clock photo preview"><button id="wake-submit" class="button primary full">Submit check-in</button></div><small class="muted">A photo supports your check-in but cannot independently verify when it was taken.</small></article>
+        <article class="panel next-card"><span class="eyebrow">A FRIENDLY REMINDER</span><h2>Progress over perfection.</h2><p>Missed a task? It's information, not a failure. Start again with the next small step.</p><button class="button secondary" data-go="reports">Review my goals →</button></article>
+      </div>
+    </section>
+
+    <section class="page" id="page-routine">
+      <div class="section-heading"><div><h2>My daily routine</h2><p>Set your times and durations. Your wake-up target starts at 04:00.</p></div><button id="add-activity-top" class="button primary">＋ Add activity</button></div>
+      <div class="schedule-banner"><div><span class="eyebrow">MORNING BLOCK</span><strong>04:00 AM — 08:00 AM</strong><p>Wake up, meditate, walk, exercise and study. Arrange the steps to fit your life.</p></div><span class="schedule-icon">☀</span></div>
+      <div id="routine-editor" class="routine-editor"></div>
+      <div id="activity-form" class="panel form-panel hidden"><div class="section-heading compact"><div><h2>Add an activity</h2><p>Give your next habit a clear starting point.</p></div><button id="close-activity-form" class="icon-button" aria-label="Close">×</button></div>
+        <form id="new-activity-form"><div class="form-grid"><div class="field"><label for="activity-name">Activity name</label><input id="activity-name" maxlength="60" required placeholder="e.g. Biology revision"></div><div class="field"><label for="activity-time">Start time</label><input id="activity-time" type="time" value="05:00" required></div><div class="field"><label for="activity-duration">Duration (minutes)</label><input id="activity-duration" type="number" min="1" max="600" value="25" required></div><div class="field"><label for="activity-evidence">Evidence</label><select id="activity-evidence"><option value="optional">Photo optional</option><option value="required">Photo required</option><option value="none">No photo</option></select></div></div><button class="button primary" type="submit">Save activity</button></form>
+      </div>
+    </section>
+
+    <section class="page" id="page-timer">
+      <button class="text-button back-button" data-go="routine">← Back to routine</button>
+      <div class="timer-layout"><div class="timer-panel panel"><span class="timer-symbol" id="timer-symbol">◷</span><span class="eyebrow">FOCUS SESSION</span><h2 id="timer-title">Activity timer</h2><p id="timer-subtitle">One step at a time.</p><div class="timer-ring" id="timer-ring"><div><strong id="timer-value">10:00</strong><span>REMAINING</span></div></div><div class="button-row centered"><button id="timer-start" class="button primary">▶ Start timer</button><button id="timer-reset" class="button secondary">↺ Reset</button></div><p id="timer-status" class="muted small">Ready when you are.</p></div>
+      <div class="panel timer-side"><h2>Session checklist</h2><div class="step"><span>1</span><div><b>Get ready</b><p>Choose a comfortable place and begin when you're ready.</p></div></div><div class="step"><span>2</span><div><b>Focus on your activity</b><p>The timer helps you track your planned duration.</p></div></div><div class="step"><span>3</span><div><b>Confirm completion</b><p>Attach evidence if the activity requires it.</p></div></div><div id="timer-evidence" class="field hidden"><label for="activity-photo">Completion photo</label><input type="file" id="activity-photo" accept="image/*" capture="environment"></div><button id="complete-activity" class="button primary full" disabled>✓ Confirm completed</button></div></div>
+    </section>
+
+    <section class="page" id="page-attendance">
+      <div class="section-heading"><div><h2>Attendance calendar</h2><p>Explore your recorded daily activity check-ins.</p></div><div class="month-controls"><button id="prev-month" class="icon-button" aria-label="Previous month">‹</button><b id="calendar-month"></b><button id="next-month" class="icon-button" aria-label="Next month">›</button></div></div>
+      <div class="panel calendar-panel"><div class="calendar-grid weekday-row"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div id="calendar-days" class="calendar-grid"></div><div class="legend"><span><i class="legend-dot complete"></i> Completed</span><span><i class="legend-dot missed"></i> Missed</span><span><i class="legend-dot today"></i> Today</span></div></div>
+      <div id="day-details" class="panel day-details"><h2>Select a date</h2><p class="muted">Choose a day on the calendar to inspect recorded tasks.</p></div>
+    </section>
+
+    <section class="page" id="page-reports">
+      <div class="section-heading"><div><h2>Reports & goals</h2><p>Look back, learn, and choose your next small step.</p></div><button id="download-report" class="button secondary">↓ Export CSV</button></div>
+      <div class="stats-grid"><article class="stat-card"><span class="muted">All recorded completions</span><strong id="all-completed">0</strong></article><article class="stat-card"><span class="muted">Recorded completion rate</span><strong id="completion-rate">—</strong></article><article class="stat-card"><span class="muted">Goals completed</span><strong id="goals-completed">0 / 0</strong></article></div>
+      <div class="two-col"><article class="panel"><div class="section-heading compact"><div><h2>Weekly review</h2><p>Reflect without judging yourself.</p></div><span class="stat-icon violet">✧</span></div><form id="review-form"><div class="field"><label for="review-good">What went well?</label><textarea id="review-good" rows="3" placeholder="A small win from this week…"></textarea></div><div class="field"><label for="review-next">What will I try next?</label><textarea id="review-next" rows="3" placeholder="One realistic improvement…"></textarea></div><button class="button primary" type="submit">Save reflection</button><p id="review-status" class="muted small"></p></form></article>
+      <article class="panel"><div class="section-heading compact"><div><h2>Monthly goals</h2><p>Track goals you choose yourself.</p></div><span class="stat-icon green">◎</span></div><form id="goal-form" class="goal-form"><input id="goal-name" maxlength="100" required placeholder="e.g. Complete 15 study sessions"><button class="button primary" type="submit">Add</button></form><div id="goals-list"></div></article></div>
+      <article class="panel report-breakdown"><h2>Activity breakdown</h2><p class="muted">Completed tasks from your saved local records.</p><div id="activity-breakdown"></div></article>
+    </section>
+
+    <section class="page" id="page-friends">
+      <div class="section-heading"><div><h2>Friends & accountability</h2><p>Compare progress with people you choose to invite.</p></div><span class="privacy-tag">🔒 Invite-only</span></div>
+      <div class="two-col"><article class="panel"><span class="stat-icon cyan">♧</span><h2>Invite your circle</h2><p class="muted">The first version stores a local friend list. Real invitations need a secure account and backend.</p><form id="friend-form"><div class="field"><label for="friend-name">Friend's display name</label><input id="friend-name" maxlength="40" required placeholder="Friend's name"></div><button class="button primary full" type="submit">＋ Add friend locally</button></form></article><article class="panel"><h2>Privacy comes first</h2><p>Only share the progress you want friends to see. Your evidence photos stay on your device in this local version.</p><ul class="privacy-list"><li>✓ Invite-only concept</li><li>✓ No public leaderboard by default</li><li>✓ Friends' sample data clearly labelled</li></ul></article></div>
+      <article class="panel friends-panel"><h2>Progress comparison</h2><p class="muted">Local prototype data only — no other user is connected yet.</p><div id="friends-list"></div></article>
+    </section>
+
+    <section class="page" id="page-settings">
+      <div class="section-heading"><div><h2>Settings</h2><p>Make Punch Person fit your routine.</p></div></div>
+      <form id="settings-form" class="settings-grid">
+        <article class="panel"><span class="settings-icon">◷</span><h2>Daily schedule</h2><p class="muted">Wake-up stays at 04:00 by default. Bedtime is your choice.</p><div class="field"><label for="setting-wake">Wake-up time</label><input id="setting-wake" type="time" value="04:00"></div><div class="field"><label for="setting-bed">Bedtime</label><input id="setting-bed" type="time" value="22:00"></div><div class="field"><label for="setting-name">Display name</label><input id="setting-name" maxlength="40" value="Akash"></div><button class="button primary" type="submit">Save settings</button></article>
+        <article class="panel"><span class="settings-icon">🔔</span><h2>Reminders</h2><p class="muted">Notifications depend on browser permissions and may not fire reliably if the browser is closed.</p><label class="toggle-row"><span><b>Daily routine reminders</b><small>Ask the browser for notification permission</small></span><input id="setting-notifications" type="checkbox"></label><label class="toggle-row"><span><b>Morning block</b><small>04:00 AM to 08:00 AM</small></span><span class="privacy-tag">Fixed block</span></label><button type="button" id="enable-notifications" class="button secondary full">Enable notifications</button></article>
+        <article class="panel"><span class="settings-icon">♧</span><h2>Friends & privacy</h2><p>Friend progress sharing is disabled until a secure backend is connected. This local version does not upload your evidence.</p><label class="toggle-row"><span><b>Keep evidence on this device</b><small>Photos are not sent to a server in this version.</small></span><span class="privacy-tag">On</span></label></article>
+        <article class="panel"><span class="settings-icon">⇧</span><h2>Install Punch Person</h2><p class="muted">Use your browser's install option to add the website to your home screen.</p><button type="button" id="settings-install" class="button secondary full">Install app</button><p id="install-help" class="muted small"></p></article>
+      </form>
+      <article class="panel danger-zone"><h2>Local data</h2><p class="muted">Export your report before clearing this browser's saved routine and check-ins.</p><button id="clear-data" class="button danger">Clear local data</button></article>
+    </section>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation"><button class="active" data-page="home"><span>⌂</span>Home</button><button data-page="routine"><span>☷</span>Routine</button><button data-page="attendance"><span>▦</span>Attendance</button><button data-page="reports"><span>▤</span>Reports</button><button data-page="settings"><span>⚙</span>Settings</button></nav>
+  </main>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body></html>

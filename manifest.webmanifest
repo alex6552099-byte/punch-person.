@@ -1,0 +1,19 @@
+{
+  "name": "Punch Person \u2014 Routine Tracker",
+  "short_name": "Punch Person",
+  "description": "Personal routine, attendance and progress tracker.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08111f",
+  "theme_color": "#08111f",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
